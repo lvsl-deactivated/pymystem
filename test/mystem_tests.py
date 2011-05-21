@@ -83,12 +83,14 @@ class MystemBinaryTests(unittest.TestCase):
         retcode, data_out, data_err = _run_mystem(["-nc"], input_data=input_data)
         self.assertEqual(data_out, output_data)
 
-    @unittest.skip("-sc i the same as -c?")
     def tets_sc_option(self):
         '''\
         Check -sc option
         '''
-        self.fail("don't call")
+        input_data = 'Hello world! I love you...'
+        output_data = 'Hello{Hello??} world{world??}! {\s}I{I??} love{love??} you{you??}...'
+        retcode, data_out, data_err = _run_mystem(["-sc"], input_data=input_data)
+        self.assertEqual(data_out, output_data)
 
     @unittest.skip('The behaviour of -w is unknown?')
     def test_w_option(self):
