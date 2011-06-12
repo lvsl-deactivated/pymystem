@@ -1,16 +1,14 @@
 #!/usr/bin/env python
 import sys
-import time
-import tempfile
 import subprocess
 
-from lib import util
+import mystem
 
-def mystem(args, fin=sys.stdin, fout=sys.stdout, ferr=sys.stderr, input_data=None):
+def run(args, fin=sys.stdin, fout=sys.stdout, ferr=sys.stderr, input_data=None):
     '''\
     Generic wrapper for MyStem
     '''
-    mystem_path = util.find_mystem()
+    mystem_path = mystem.util.find_mystem()
 
     # make utf-8 a default encoding
     if '-e' not in args:
@@ -27,7 +25,7 @@ def mystem(args, fin=sys.stdin, fout=sys.stdout, ferr=sys.stderr, input_data=Non
 
 
 def main(args):
-    return mystem(args)
+    return run(args)
 
 
 if __name__ == "__main__":

@@ -1,7 +1,6 @@
 # coding: utf-8
 
 import re
-import sys
 import os.path
 
 __all__ = ['MystemError', 'find_mystem', 'parse_mystem_out']
