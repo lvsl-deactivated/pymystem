@@ -5,10 +5,10 @@ import mystem
 class Lemma(object):
     def __init__(self, lemma, ipc=None, gr_list=(), parent_word=None):
         self.lemma = lemma
-        self.ipc = float(ipc)
+        self.ipc = float(ipc) if ipc else ipc
         self.parent_word = parent_word
         self.gr_list = gr_list
-        self.grammems = tuple(mystem.Grammeme(*gr) for gr in gr_list)
+        self.grammems = tuple(mystem.Grammeme(*gr) for gr in gr_list) if gr_list else ()
 
     def is_bound_to_word(self):
         return self.parent_word is not None

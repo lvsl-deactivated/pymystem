@@ -70,23 +70,22 @@ Parser:
 
 Document:
   Document().docid
-  Document().bag
+  Document().words
   Document().text
-  Document().find()
-  Document().__in__()
-  Document().__add__()
+  Document().__contains__()
   Document().__len__()
-  Document().__index__()
-  Document().__getitem__()
-  Document().grep()
-  Document().positions()
+  Document().__str__()
+  Document().__repr__()
 
 Word:
   Word().orig
   Word().lemmas
+  Word().lemmas_list
   Word().parent_doc
   Word().__eq__()
-  Word().__in__()
+  Word().__contains__()
+  Word().__str__()
+  Word().__repr__()
 
 Lemma:
   Lemma().ipc
@@ -128,3 +127,5 @@ Grammeme:
 
 from mystem._grammeme import Grammeme
 from mystem._lemma import Lemma
+from mystem._word import Word
+from mystem._document import Document
