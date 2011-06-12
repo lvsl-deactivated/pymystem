@@ -154,14 +154,31 @@ class Grammeme(object):
                 raise MystemError("Unknown attribute: %s" % a)
         self.parent_lemma = None
         self.tag = tag
-        self.attrs  = attrs
+        self.attrs = attrs
 
     @property
     def is_bound_to_lemma(self):
         return self.parent_lemma is not None
 
+    @classmethod
+    def get_attr_kind(cls, value):
+        if value in cls.TENSE: return 'TENSE'
+        if value in cls.CASE: return 'CASE'
+        if value in cls.NUMBER: return 'NUMBER'
+        if value in cls.INCLANSION: return 'INCLANSION'
+        if value in cls.ADJ_FORM: return 'ADJ_FORM'
+        if value in cls.COMP_DEGR: return 'COMP_DEGR'
+        if value in cls.PERSON: return 'PERSON'
+        if value in cls.GENDER: return 'GENDER'
+        if value in cls.ASPECT: return 'ASPECT'
+        if value in cls.ANINIMATION: return 'ANINIMATION'
+        if value in cls.TRANSITION: return 'TRANSITION'
+        if value in cls.OTHER: return 'OTHER'
+
+        raise mystem.util.MystemError("attr of an unknown kind: %s" % value)
+
     def __eq__(self, other):
-        if (isinstance(other, Grammeme) and
+        if (isinstance(other, self.__class__) and
                 self.tag == other.tag and
                 self.attrs == other.attrs):
             return True
@@ -170,4 +187,21 @@ class Grammeme(object):
 
     def __contains__(self, item):
         return item in self.attrs
+
+    def __str__(self):
+        s = '<%s instance. Tag: %s. %s>' % (
+            self.__class__.__name__,
+            self.tag,
+            '. '.join(["%s: '%s'" % (self.get_attr_kind(a), a) for a in self.attrs])
+        )
+        return s
+
+    def __repr__(self):
+        s = '<%s instance at %s. Tag: %s. %s>' % (
+            self.__class__.__name__,
+            hex(id(self)),
+            self.tag,
+            '. '.join(["%s: '%s'" % (self.get_attr_kind(a), a) for a in self.attrs])
+        )
+        return s
 

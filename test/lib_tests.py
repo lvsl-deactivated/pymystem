@@ -78,6 +78,69 @@ class UtilTests(unittest.TestCase):
         g1 = mystem.Grammeme('S', 'гео', 'муж', 'неод', 'дат', 'ед')
         self.assertFalse(g1.is_bound_to_lemma)
 
+    def test_grammeme_str(self):
+        g1 = mystem.Grammeme('S', 'гео', 'муж', 'неод', 'дат', 'ед')
+        self.assertEqual(str(g1), "<Grammeme instance. Tag: S. OTHER: 'гео'. GENDER: 'муж'. ANINIMATION: 'неод'. CASE: 'дат'. NUMBER: 'ед'>")
+
+    def test_lemma_ctor1(self):
+        l = mystem.Lemma('мыло',
+                         16.3,
+                         [['S', 'сред', 'неод', 'им', 'мн'],
+                          ['S', 'сред', 'неод', 'род', 'ед'],
+                          ['S', 'сред', 'неод', 'вин', 'мн']])
+
+        self.assertEqual(l.lemma, 'мыло')
+        self.assertEqual(l.ipc, 16.3)
+        self.assertEqual(l.grammems, (
+            mystem.Grammeme('S', 'сред', 'неод', 'им', 'мн'),
+            mystem.Grammeme('S', 'сред', 'неод', 'род', 'ед'),
+            mystem.Grammeme('S', 'сред', 'неод', 'вин', 'мн'),
+        ))
+
+    def test_lemma_str(self):
+        l = mystem.Lemma('мыло',
+                         16.3,
+                         [['S', 'сред', 'неод', 'им', 'мн'],
+                          ['S', 'сред', 'неод', 'род', 'ед'],
+                          ['S', 'сред', 'неод', 'вин', 'мн']])
+        self.assertEqual(str(l), '<Lemma instance. Lemma: мыло. Grammar: S,сред,неод,им,мн|=S,сред,неод,род,ед|=S,сред,неод,вин,мн>')
+
+    def test_lemma_eq(self):
+        l1 = mystem.Lemma('мыло',
+                         16.3,
+                         [['S', 'сред', 'неод', 'им', 'мн'],
+                          ['S', 'сред', 'неод', 'род', 'ед'],
+                          ['S', 'сред', 'неод', 'вин', 'мн']])
+        l2 = mystem.Lemma('мыло',
+                         16.1,
+                         [['S', 'сред', 'неод', 'им', 'мн'],
+                          ['S', 'сред', 'неод', 'род', 'ед'],
+                          ['S', 'сред', 'неод', 'вин', 'мн']])
+        l3 = mystem.Lemma('мыло',
+                         16.3,
+                         [['V', 'сред', 'неод', 'им', 'мн'],
+                          ['S', 'сред', 'неод', 'род', 'ед'],
+                          ['S', 'сред', 'неод', 'вин', 'мн']])
+        l4 = mystem.Lemma('мылож',
+                         16.3,
+                         [['V', 'сред', 'неод', 'им', 'мн'],
+                          ['S', 'сред', 'неод', 'род', 'ед'],
+                          ['S', 'сред', 'неод', 'вин', 'мн']])
+
+        self.assertEqual(l1, l2)
+        self.assertEqual(l2, l2)
+        self.assertNotEqual(l2, l3)
+        self.assertNotEqual(l3, l4)
+
+    def test_lemma_contain(self):
+        l1 = mystem.Lemma('мыло',
+                         16.3,
+                         [['S', 'сред', 'неод', 'им', 'мн'],
+                          ['S', 'сред', 'неод', 'род', 'ед'],
+                          ['S', 'сред', 'неод', 'вин', 'мн']])
+        g1 = mystem.Grammeme('S', 'сред', 'неод', 'им', 'мн')
+        self.assertTrue(g1 in l1)
+
 def suite():
     loader = unittest.TestLoader()
     return unittest.TestSuite([
