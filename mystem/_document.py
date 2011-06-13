@@ -8,6 +8,7 @@ class Document(object):
         self.docid = docid or id(self)
         self.text = text
         self.word_dict = copy.deepcopy(word_dict) if word_dict else  {}
+        self.bag = set(self.word_dict.keys())
         self.words = [mystem.Word(orig, lemmas) for orig, lemmas in self.word_dict.items()]
 
     def __str__(self):

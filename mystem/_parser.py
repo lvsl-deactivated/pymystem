@@ -1,5 +1,6 @@
 # coding: utf-8
 
+import os
 import md5
 import subprocess
 
@@ -8,7 +9,10 @@ import mystem
 class Parser(object):
     @classmethod
     def parse(self, text):
-        mystem_path = mystem.util.find_mystem()
+        if os.getenv('MYSTEM_PATH'):
+            mystem_path = os.getenv('MYSTEM_PATH')
+        else:
+            mystem_path = mystem.util.find_mystem()
         p = subprocess.Popen([mystem_path, '-e', 'utf-8', '-inf'],
                              stdin=subprocess.PIPE,
                              stdout=subprocess.PIPE,

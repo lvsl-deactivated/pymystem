@@ -293,15 +293,55 @@ class UtilTests(unittest.TestCase):
         w1 = mystem.Word(r1[0], r1[1])
         self.assertTrue(w1 in doc)
 
+    def test_document_bag(self):
+        words_dict = {
+            'huge': [('huge', None, None)],
+            'Мама': [('мама', 313.8, [['S', 'жен', 'од', 'им', 'ед']])],
+            'мыла': [('мыть',
+                      26.7,
+                      [['V', 'несов', 'прош', 'ед', 'изъяв', 'жен', 'пе']]),
+                     ('мыло',
+                      16.3,
+                      [['S', 'сред', 'неод', 'им', 'мн'],
+                       ['S', 'сред', 'неод', 'род', 'ед'],
+                       ['S', 'сред', 'неод', 'вин', 'мн']])],
+            'раму': [('рама', 22.5, [['S', 'жен', 'неод', 'вин', 'ед']]),
+                     ('рам', 0.0, [['S', 'гео', 'муж', 'неод', 'дат', 'ед']])]}
+
+        text = "huge Мама мыла раму"
+
+        doc = mystem.Document(1, text, words_dict)
+        self.assertEqual(doc.bag, set(['huge', 'Мама', 'мыла', 'раму']))
+
     def test_parser_parse(self):
         test_data_dir = os.path.join(
                            os.path.dirname(os.path.abspath(__file__)),
                            'test_data')
-
         input_data = open(os.path.join(test_data_dir, 'in.txt')).read()
-
         doc = mystem.Parser.parse(input_data)
-        print doc
+
+    def test_mystem_parse(self):
+        test_data_dir = os.path.join(
+                           os.path.dirname(os.path.abspath(__file__)),
+                           'test_data')
+        filename = os.path.join(test_data_dir, 'in.txt')
+        doc = mystem.parse(filename)
+
+    def test_mystem_tokenize(self):
+        test_data_dir = os.path.join(
+                           os.path.dirname(os.path.abspath(__file__)),
+                           'test_data')
+        input_data = open(os.path.join(test_data_dir, 'in.txt')).read()
+        tokens = mystem.tokenize(input_data)
+
+    def test_mystem_serialize(self):
+        test_data_dir = os.path.join(
+                           os.path.dirname(os.path.abspath(__file__)),
+                           'test_data')
+        filename = os.path.join(test_data_dir, 'in.txt')
+        doc = mystem.parse(filename)
+
+        json = mystem.serialize(doc)
 
 
 def suite():

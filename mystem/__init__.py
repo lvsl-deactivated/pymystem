@@ -42,9 +42,6 @@ mystem -> Parser -> Document -> Word -> Lemma -> Grammeme
 == API TODO: ==
 Top-level fucntions:
   mystem.parse()
-  mystem.fromstring()
-  mystem.tosting()
-  mystem.sentinize()
   mystem.tokenize()
   mystem.serialize()
 
@@ -70,7 +67,9 @@ Parser:
 Document:
   Document().docid
   Document().words
+  Document().word_dict
   Document().text
+  Document().bag
   Document().__contains__()
   Document().__len__()
   Document().__str__()
@@ -123,9 +122,23 @@ Grammeme:
   Grammeme().__repr__()
 
 '''
-
+from mystem.util import MystemError
 from mystem._grammeme import Grammeme
 from mystem._lemma import Lemma
 from mystem._word import Word
 from mystem._document import Document
 from mystem._parser import Parser
+
+def parse(path):
+    data = open(path).read()
+    return Parser.parse(data)
+
+def tokenize(s):
+    doc = Parser.parse(s)
+    return doc.bag
+
+def serialize(doc):
+    import json
+    if not isinstance(doc, Document):
+        raise MystemError("%s is not a Document instance" % doc)
+    return json.dumps(doc.word_dict, indent=1)
