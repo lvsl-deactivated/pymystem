@@ -122,6 +122,13 @@ Grammeme:
   Grammeme().__str__()
   Grammeme().__repr__()
 
+TODO:
+  Get rid of run_mystem.py
+  Return parsed results in list or tuple
+  Refactor parsing
+  Add parent links
+  Add Sentance class
+
 '''
 from mystem.util import MystemError
 from mystem._grammeme import Grammeme
