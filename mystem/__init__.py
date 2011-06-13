@@ -42,6 +42,7 @@ mystem -> Parser -> Document -> Word -> Lemma -> Grammeme
 == API TODO: ==
 Top-level fucntions:
   mystem.parse()
+  mystem.fromstring()
   mystem.tokenize()
   mystem.serialize()
 
@@ -132,6 +133,9 @@ from mystem._parser import Parser
 def parse(path):
     data = open(path).read()
     return Parser.parse(data)
+
+def fromstring(s):
+    return Parser.parse(s)
 
 def tokenize(s):
     doc = Parser.parse(s)

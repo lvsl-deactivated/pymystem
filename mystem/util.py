@@ -36,14 +36,18 @@ def parse_mystem_out(s):
         lemmas = re.split(r'\|(?!\=)', info)
         parsed_lemmas = []
         for l in lemmas:
+            # omit some shit
+            if l.startswith('?'):
+                continue
             if '??' in l:
                 form = l.replace('??', '')
                 parsed_lemmas.append((form, None, None))
                 continue
             lemma_parts = re.findall(r'^([^:]+):([\d.]+)=(.+)$', l)
             if not lemma_parts:
-                raise MystemError("Incorrect mystem output")
+                raise MystemError("Incorrect mystem output: %s, %s" % (orig, info))
             form, ipm, gr = lemma_parts[0]
+            form = form.rstrip('?')
             ipm = float(ipm)
             gr = gr.split('|=')
             parsed_gr = []
