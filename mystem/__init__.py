@@ -66,7 +66,6 @@ Environment variables:
 == API OF THE CLASSES: ==
 Parser:
   Parser.parse()
-  Parser.iterparse()
 
 Document:
   Document().docid
@@ -129,3 +128,4 @@ from mystem._grammeme import Grammeme
 from mystem._lemma import Lemma
 from mystem._word import Word
 from mystem._document import Document
+from mystem._parser import Parser

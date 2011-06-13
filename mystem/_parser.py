@@ -1,27 +1,26 @@
 # coding: utf-8
 
-#
-# Mystem class
-#
+import md5
+import subprocess
 
-import util
-
-__all__ = ['Mystem']
+import mystem
 
 class Parser(object):
-    def __init__(self):
-    '''\
-    Wrapper for myste -inf command
-    '''
-        self._mystem_file = util.find_mystem()
-        self._mystem_opts = ["-inf", "-e", "utf-8"]
-        self._pool = None
+    @classmethod
+    def parse(self, text):
+        mystem_path = mystem.util.find_mystem()
+        p = subprocess.Popen([mystem_path, '-e', 'utf-8', '-inf'],
+                             stdin=subprocess.PIPE,
+                             stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE)
+        out, err = p.communicate(input=text)
+        if p.returncode:
+            raise mystem.util.MystemError("mystem returned: %s" % p.returncode)
 
-    def start(self, workers=1):
-        pass
+        parsed_out = mystem.util.parse_mystem_out(out)
+        docid = md5.md5(text).hexdigest()
 
-    def stop(self):
-        pass
+        doc = mystem.Document(docid, text, parsed_out)
 
-    def parse(self):
-        pass
+        return doc
+

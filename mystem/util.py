@@ -48,7 +48,7 @@ def parse_mystem_out(s):
             gr = gr.split('|=')
             parsed_gr = []
             for g in gr:
-                g = g.replace('=', ',') # don't know what = is used for
+                g = g.lstrip('=').rstrip('=').replace('=', ',') # don't know what = is used for
                 parsed_gr.append(g.split(','))
             parsed_lemmas.append((form, ipm, parsed_gr))
         orig = orig.strip()

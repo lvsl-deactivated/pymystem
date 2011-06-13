@@ -138,6 +138,7 @@ class Grammeme(object):
         PERSON,
         GENDER,
         ASPECT,
+        VOICE,
         ANINIMATION,
         TRANSITION,
         OTHER,
@@ -151,7 +152,7 @@ class Grammeme(object):
                 raise MystemError("Attributs must be instances of basestring"
                                   " not %s: %s" % (type(a), a))
             if a not in self.ALL_ATTRS:
-                raise MystemError("Unknown attribute: %s" % a)
+                raise MystemError("Unknown attribute: '%s'" % a)
         self.parent_lemma = None
         self.tag = tag
         self.attrs = attrs
@@ -171,6 +172,7 @@ class Grammeme(object):
         if value in cls.PERSON: return 'PERSON'
         if value in cls.GENDER: return 'GENDER'
         if value in cls.ASPECT: return 'ASPECT'
+        if value in cls.VOICE: return 'VOICE'
         if value in cls.ANINIMATION: return 'ANINIMATION'
         if value in cls.TRANSITION: return 'TRANSITION'
         if value in cls.OTHER: return 'OTHER'

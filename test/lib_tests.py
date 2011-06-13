@@ -293,6 +293,16 @@ class UtilTests(unittest.TestCase):
         w1 = mystem.Word(r1[0], r1[1])
         self.assertTrue(w1 in doc)
 
+    def test_parser_parse(self):
+        test_data_dir = os.path.join(
+                           os.path.dirname(os.path.abspath(__file__)),
+                           'test_data')
+
+        input_data = open(os.path.join(test_data_dir, 'in.txt')).read()
+
+        doc = mystem.Parser.parse(input_data)
+        print doc
+
 
 def suite():
     loader = unittest.TestLoader()
