@@ -177,7 +177,7 @@ class Grammeme(object):
         if value in cls.TRANSITION: return 'TRANSITION'
         if value in cls.OTHER: return 'OTHER'
 
-        raise mystem.util.MystemError("attr of an unknown kind: %s" % value)
+        raise MystemError("attr of an unknown kind: %s" % value)
 
     def __eq__(self, other):
         if (isinstance(other, self.__class__) and

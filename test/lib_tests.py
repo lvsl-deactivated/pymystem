@@ -318,21 +318,21 @@ class UtilTests(unittest.TestCase):
                            os.path.dirname(os.path.abspath(__file__)),
                            'test_data')
         input_data = open(os.path.join(test_data_dir, 'in.txt')).read()
-        doc = mystem.Parser.parse(input_data)
+        mystem.Parser.parse(input_data)
 
     def test_mystem_parse(self):
         test_data_dir = os.path.join(
                            os.path.dirname(os.path.abspath(__file__)),
                            'test_data')
         filename = os.path.join(test_data_dir, 'in.txt')
-        doc = mystem.parse(filename)
+        mystem.parse(filename)
 
     def test_mystem_tokenize(self):
         test_data_dir = os.path.join(
                            os.path.dirname(os.path.abspath(__file__)),
                            'test_data')
         input_data = open(os.path.join(test_data_dir, 'in.txt')).read()
-        tokens = mystem.tokenize(input_data)
+        mystem.tokenize(input_data)
 
     def test_mystem_serialize(self):
         test_data_dir = os.path.join(
@@ -341,7 +341,7 @@ class UtilTests(unittest.TestCase):
         filename = os.path.join(test_data_dir, 'in.txt')
         doc = mystem.parse(filename)
 
-        json = mystem.serialize(doc)
+        mystem.serialize(doc)
 
 
 def suite():

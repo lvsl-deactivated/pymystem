@@ -8,7 +8,7 @@ import mystem
 
 class Parser(object):
     @classmethod
-    def parse(self, text):
+    def parse(cls, text):
         if os.getenv('MYSTEM_PATH'):
             mystem_path = os.getenv('MYSTEM_PATH')
         else:

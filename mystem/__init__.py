@@ -123,7 +123,6 @@ Grammeme:
   Grammeme().__repr__()
 
 TODO:
-  Get rid of run_mystem.py
   Return parsed results in list or tuple
   Refactor parsing
   Add parent links
